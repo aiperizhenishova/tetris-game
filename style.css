@@ -1,0 +1,13 @@
+.grid{
+    width: 200px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: pink;
+}
+
+.grig div {
+    height: 200px;
+    width: 20px;
+    background-color: black;
+}

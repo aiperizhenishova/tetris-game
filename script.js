@@ -70,6 +70,22 @@ document.addEventListener('DOMContentLoaded', () =>{
     // make the tetromino move down every second
     let timerId = setInterval(movedown, 700)
     
+
+    // assign functions to KeyCodes
+    function control(e){
+        if(e.keyCode === 37){
+            moveLeft()
+        }else if(e.keyCode === 38){
+            rotate()
+        }else if(e.keyCode === 39){
+            moveRight()
+        }else if (e.keyCode === 40){
+            movedown()
+        }
+    }
+    document.addEventListener('keyup', control)
+
+
     // move down function
     function movedown(){
         undraw()
@@ -91,4 +107,48 @@ document.addEventListener('DOMContentLoaded', () =>{
             draw()
         }
     }
+
+
+    // move the tetromino LEFT, unless is at the edge or there is a blockage
+    function moveLeft(){
+        undraw()
+        const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)
+
+        if(!isAtLeftEdge) currentPosition -=1
+
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
+            currentPosition += 1;
+        }
+
+        draw()
+    }
+
+
+    // move the tetromino RIGHT, unless is at the edge or there is a blockage
+    function moveRight(){
+        undraw()
+        const isAtRightEdge = current.some(index => (currentPosition + index) % width === width - 1)
+
+        if(!isAtRightEdge) currentPosition += 1
+
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
+            currentPosition -=1;
+        }
+
+        draw()
+    }
+
+
+    // rotate function 
+    function rotate(){
+        undraw()
+        currentRotaion ++
+        if(currentRotaion === current.length){
+            currentRotaion = 0    // like if the current roation gets 4, make it go back to 0
+        }
+        current = theTetronomies[random][currentRotaion]
+
+        draw()
+    }
+
 })

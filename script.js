@@ -184,4 +184,20 @@ document.addEventListener('DOMContentLoaded', () =>{
         })
     }
 
+
+    // add functionality to the button
+    StartBtn.addEventListener('click', () => {
+        if(timerId){     // If timerId has a value (something inside it)
+            clearInterval(timerId)
+            timerId = null
+        }else{
+            draw()
+            timerId = setInterval(movedown, 700)
+            nextRandom = Math.floor(Math.random() * theTetronomies.length)
+            displayShape()
+        }
+    })
+
+    
+
 })
